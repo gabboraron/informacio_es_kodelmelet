@@ -25,8 +25,11 @@ példák: Morse kód, Ascii kód, isbn kód
 
 **Változó hosszúságú betűnkénti kódoláshoz** minden egyes jelet megszorzunk a jel gyakoriságával és ezek összegét vesszük.
 
+**szinguláris kód**: minden ábécéhez ugyanazt rendeljük
 
 **információ mennyiség**: keresett jel gyakorisága/(összes jel gyakoriságának összege, ez *m*
 
 *m* számú azonos valségű esemény közül egy megnevezésével nyert információ `I = log2*m*`
 
+## EA2
+Huffamnn kódolás: https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s
