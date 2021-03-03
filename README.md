@@ -33,3 +33,18 @@ példák: Morse kód, Ascii kód, isbn kód
 
 ## EA2
 Huffamnn kódolás: https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s
+
+## EA3 - elmaradt
+
+## EA4
+
+- [Shannon-Fano kód](https://regi.tankonyvtar.hu/hu/tartalom/tamop425/0046_informacio_es_kodelmelet/ch04s04.html)
+  - [Kutor féle részlet](http://uni-obuda.hu/users/kutor/IRA%202014/IRA%202014-7.pdf)
+- [Gilbert-Moore kód](https://gyires.inf.unideb.hu/KMITT/c07/ch04s05.html)
+- [Huffman-kódolás](https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s)
+  - https://people.ok.ubc.ca/ylucet/DS/Huffman.html
+-  
+
+
+
+
