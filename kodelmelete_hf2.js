@@ -1,4 +1,4 @@
-"use strict"
+﻿"use strict"
 
 var mystring = "";
 var a = 0;
@@ -110,8 +110,6 @@ for (var i = 0; i < mystring.length; i++) {
 }
 console.log("karaktersorozat Shannon-Fano kódolással: " + shannonFanoEncodedString);
 
-
-
 console.log(" ");
 console.info("------ Gilbert-Moore kódolással -----");
 console.log(" ");
@@ -128,4 +126,3 @@ for (var i = 0; i < mystring.length; i++) {
 }
 
 console.log("karaktersorozat Gilbert-Moore kódolással: " + gilbertMooreEncodedString);
-
