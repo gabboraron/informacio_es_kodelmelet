@@ -78,6 +78,8 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 > 
 > **Betűnkénti vagy szimbólum kód:** *A K: Σx → Σy+ leképezést kódnak nevezzük, a K(x) az x ∈ Σx-hez tartozó kódszó, l(x) a K(x) kódszó hossza, Li = l(xi).* Állandó *n* hosszúságú kód esetén *K* valójában K:Σx → Σy*n* típusú leképezés, ahol *n* az állandó (blokk) kódhossz. A kódot szokás  a K={K*1*, K*2*,...K*d*} lakban is megadni, ahol a *Ki* ∈ Σy*n* az *xi* ∈ Σx szimbólumhoz rendelt kódszó.
 > 
+> **Változó hosszúságú betűnkénti kódoláshoz** minden egyes jelet megszorzunk a jel gyakoriságával és ezek összegét vesszük.
+> 
 > **Kiterjesztett *K+* kód:** *Az K+: Σx+ → Σy+ leképzeést a K kód kiterjesztésének nevezzzük, ha K+(xi1xi2...xiN) = K(xi1)K(xi2)...K(xiN). Gyakorlatban a K+ jelölés helyett a K(xi1xi2...xiN) = K(xi1)K(xi2)...K(xiN)-t használjuk.*
 > 
 > **Def:** *Egy K: Σx+ → Σy+ kódot **nemszinguláris**nak nevezünk, ha minden x,x' ∈ Σx, x ≠ x' esetén K(x) ≠ K(x') is teljesül. A nemszingularitás elég egy kódjel egyértelmű azonosításához, de nem elég egy üzenet azonosításához.* 
@@ -96,13 +98,27 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 | 3    | 0                  |    01 |   11  | 110   |  10   |
 | 4    | 0                  |    10 |   110 | 111   |  11   |
 
+### Gazdaságosság
+> Tekintsük először az **állandó hosszúságú betűnkénti kódolás** esetét bináris csatornaábécét és egyértelmű dekódolhatóságot feltétlezve. A kódjelek hosza *L*. Ekkor *N* jel hosszúságú közlemény továbbításának költésge *N L*-el arányos egy betű átlagos költsége peig `C=(1/N)NL = L`. Az *L* hosszúságú 0 - 1 sorozatok száma 2^L. A *d* betűhöz *2^L* különböző L bit hosszú bináris sorozat rendelhető. Egyértelműen dekódolható, ha `d<=2^L ⇔ log3 d <= L`. Tehát L = log3 d felülre kerkekítésével.
+> 
+> Állandó kódhosszúságú és egyértelműen dekódolható bináris kódlásnál az egy betűre eső költésg `log2`*`d`*-nél nem lehet kisebb: `log2`*`d`*`≤`*`C`*`<log2`*`d`*`+(1/n)` ha az egy betűre jutó költség *`C`*.
+> 
+> 
+> **Változó betűnkénti kódhosszúság** esetén a gyakoribb jelnek hosszabb kódot adunk, a legrövidebb közleményt a legrövidebb módon szeretnénk tárolni. Ehhez minden jelhez kell annak a valószínűsége. Σx = {x1, x2, ..., xn} a forrásábécé, *pi* az *xi* előfordulásnak a valószínűsége. *Ki* az *xi* kódja, *Li* pedig *xi* kódjának hossza. A teljes hossz: `L = Σ [i=1 → d] NiLi` Az egy betűre eső átlagos kódhossz: `L' = L/N = Σ[i=1 → d](Ni*Li)/N`. Azaz az előforduló jelek relatív gyakoriságukkal megszorozva: `L(K) = Σ[i=1→d]Ni*pi`.
 
-**Változó hosszúságú betűnkénti kódoláshoz** minden egyes jelet megszorzunk a jel gyakoriságával és ezek összegét vesszük.
+### Információmennyiség
+https://people.inf.elte.hu/molnarba/IREAE%20_Informacios%20rendszerek%20elmeleti%20alapjai%20EA.%20(MSc%20Ir)/Eloadas_2015_ELTE/Eloadas_1/Inform%e1ci%f3elm%e9let.pdf
 
+> **Információ** valmaely véges számú, előre ismert esemény közül annak megnevezése, hogy melyik következett be. Alternatív megfoglamazás: az infomráció mértéke azonos azzal a bizonytalanságga amelyet megszűntet.
+> 
+> Shannon: *minél váratlanabb egy esemény bekövetkezése annál több infomrációt jelent, annál több bizonytalanságot kell kiküszöbölni.* Legyen *A={A1, A2, ..., Am}* esemény halmaz az *A1* esemény valószínűsége p1, ... az Am-é pm. Ekkor Ai menvezésekor nyert irnformáció: `I(Ai) = log2`*`1/pi`*`=-log2`*`pi`*.
 
-**információ mennyiség**: keresett jel gyakorisága/(összes jel gyakoriságának összege, ez *m*
+**információ mennyiség**: 
+- keresett jel gyakorisága/(összes jel gyakoriságának összege, ez *m*
+- *m* számú azonos valségű esemény közül egy megnevezésével nyert információ `I = log2*m*`
 
-*m* számú azonos valségű esemény közül egy megnevezésével nyert információ `I = log2*m*`
+Shannon egy véges sok jelből álló (véges ábécé feletti) üzenet információértékét az üzenet jeleinek mint a jelre jellemző valószínűséggel bekövetkező események információtartalmának „átlagos”, azaz várható értékeként határozta meg: ![shannon entrópia](https://wikimedia.org/api/rest_v1/media/math/render/svg/5130465a49650626ef8fec76f8ceebb1b5ec2fbc)
+
 
 ## EA2
 Huffamnn kódolás: https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s
@@ -121,3 +137,4 @@ Huffamnn kódolás: https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s
 
 
 
+ 
