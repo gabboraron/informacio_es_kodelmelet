@@ -189,18 +189,22 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 > - amire származtattunk arra `0`-t adunk, amire nem arra `1`-et, ezt folytatjuk visszafele 
 > 
 > YT tutorial: https://www.youtube.com/watch?v=A6wEgIVEZL8
+> 
+> bővebben: [Algoritmusok es adatszerkezetek 2 javitott 2019.06.07.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Algoritmusok%20es%20adatszerkezetek%202%20javitott%202019.06.07.pdf)
 
 ## EA3 - elmaradt
 
 ## EA4
-
 - [Shannon-Fano kód](https://regi.tankonyvtar.hu/hu/tartalom/tamop425/0046_informacio_es_kodelmelet/ch04s04.html): hivatalos jegyzetben: http://siva.bgk.uni-obuda.hu/~laufer/bevinfo_tankonyv/Informatika%20alapjai%20jegyzet.pdf
   - [Kutor féle részlet](http://uni-obuda.hu/users/kutor/IRA%202014/IRA%202014-7.pdf)
 - [Gilbert-Moore kód](https://gyires.inf.unideb.hu/KMITT/c07/ch04s05.html)
 - [Huffman-kódolás](https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s)
   - https://people.ok.ubc.ca/ylucet/DS/Huffman.html
--  
 
+
+## EA5
+
+## EA6
 
 
 
