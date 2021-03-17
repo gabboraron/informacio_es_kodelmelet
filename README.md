@@ -106,22 +106,89 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 > 
 > **Változó betűnkénti kódhosszúság** esetén a gyakoribb jelnek hosszabb kódot adunk, a legrövidebb közleményt a legrövidebb módon szeretnénk tárolni. Ehhez minden jelhez kell annak a valószínűsége. Σx = {x1, x2, ..., xn} a forrásábécé, *pi* az *xi* előfordulásnak a valószínűsége. *Ki* az *xi* kódja, *Li* pedig *xi* kódjának hossza. A teljes hossz: `L = Σ [i=1 → d] NiLi` Az egy betűre eső átlagos kódhossz: `L' = L/N = Σ[i=1 → d](Ni*Li)/N`. Azaz az előforduló jelek relatív gyakoriságukkal megszorozva: `L(K) = Σ[i=1→d]Ni*pi`.
 
+## EA2 - forráskódolás
+- https://forgos.uni-eszterhazy.hu/wp-content/tananyagok/tarsesmedkomm_pc_exe/415_shannon_s_weaver_informcielmleti_hradstechnikai_modellje.html
+- [információs rendszerek alapjai](https://people.inf.elte.hu/molnarba/IREAE%20_Informacios%20rendszerek%20elmeleti%20alapjai%20EA.%20(MSc%20Ir)/Eloadas_2015_ELTE/Eloadas_1/Inform%e1ci%f3elm%e9let.pdf), fájl: [Információelmélet - molnarba - ELTE.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Inform%C3%A1ci%C3%B3elm%C3%A9let%20-%20molnarba%20-%20ELTE.pdf)
+
+![shannon - kódoló](https://images.slideplayer.hu/9/2671866/slides/slide_7.jpg)![shannon-csatorna](https://images.slideplayer.hu/8/2274975/slides/slide_22.jpg)![shannon-dekódoló](https://images.slideplayer.hu/8/2274975/slides/slide_23.jpg)
+
 ### Információmennyiség
-https://people.inf.elte.hu/molnarba/IREAE%20_Informacios%20rendszerek%20elmeleti%20alapjai%20EA.%20(MSc%20Ir)/Eloadas_2015_ELTE/Eloadas_1/Inform%e1ci%f3elm%e9let.pdf
-
-> **Információ** valmaely véges számú, előre ismert esemény közül annak megnevezése, hogy melyik következett be. Alternatív megfoglamazás: az infomráció mértéke azonos azzal a bizonytalanságga amelyet megszűntet.
+> **Információ** valamaly véges számú, előre ismert esemény közül annak megnevezése, hogy melyik következett be. Alternatív megfoglamazás: az infomráció mértéke azonos azzal a bizonytalansággal amelyet megszűntet.
 > 
-> Shannon: *minél váratlanabb egy esemény bekövetkezése annál több infomrációt jelent, annál több bizonytalanságot kell kiküszöbölni.* Legyen *A={A1, A2, ..., Am}* esemény halmaz az *A1* esemény valószínűsége p1, ... az Am-é pm. Ekkor Ai menvezésekor nyert irnformáció: `I(Ai) = log2`*`1/pi`*`=-log2`*`pi`*.
+> *Felező algoritmus: mindig felezzük az intervallumot, és így kapjuk meg a keresett elemet, azaz 8 elemből 3 lpéssel kapjuk meg az elemet. Azaz 8=2^3 amiből 3 lépésben kaptuk meg, tehát kettes alapú logaritumst használva kapjuk meg a lépésszámot. Amennyiben nem kettővel osztható, úgy felső egész részét vehetjük a logaritmusnak.*
+> 
+> **Hartley:** *m* számmú azonos valósínűségű esemény közül egy megnevezésével nyert infomráció: `I=log2`*`m`*. (Azaz `log2`*`m`* kérdéssel azonosítható egy elem). Két esemény összevonsával 1 bittel lesz rövidebb, hiszen m/2 számú párból egy. Ez ugyanaz mint `I = -log1/m`
+> 
+> **Shannon:** *minél váratlanabb egy esemény bekövetkezése annál több infomrációt jelent, annál több bizonytalanságot kell kiküszöbölni.* Legyen *A={A1, A2, ..., Am}* esemény halmaz, *m* eseménnyel az *A1* esemény valószínűsége p1, ... az Am-é pm. Ekkor Ai megnvezésekor nyert irnformáció: `I(Ai) = log2`*`1/pi`*`=-log2`*`pi`*.
+>
+> **információ mennyiség**: 
+> - keresett jel gyakorisága/(összes jel gyakoriságának összege, ez *m*
+> - *m* számú azonos valségű esemény közül egy megnevezésével nyert információ `I = log2*m*`
+>
+> **normálás**: legyen `I(A)=1 ha p(A)=1/2=0,5`. Azaz, ha az infomráció mennyisége `1` akkor a hozzá tartozó valség `1/2`. Ekkor kettes alapú logaritmus használandó és az információmennyisége a ***bit***.`I(mi)=log(1/pi)`. Ha 10-es laapú logaritmust használunk akkkor *hartley*-nek nevezzük, ha természetes alapú logaritmust használunk akkor ***nat***.
 
-**információ mennyiség**: 
-- keresett jel gyakorisága/(összes jel gyakoriságának összege, ez *m*
-- *m* számú azonos valségű esemény közül egy megnevezésével nyert információ `I = log2*m*`
+*példa:* 
+- a forrás lead egy üzentet amiben van 21 db `c`, 22 db`n`, 17 db`d`akkor az információtartalma, ha a következő betű `c`lesz úgy adható meg, hogy:
+  - relatív gyakoriság:*`c`*` darabszáma/összes elem száma` azaz `p(c) = 21/(21+22+17) = 21/60 = 0,35`
+  - hozzá tartozó infomráció mennyiség: `-log2`*`elem relatív gyakorisága`* azaz: `l(c) = -log2`*`0,35`*` = -ln0,35/ln2 = 1,51` 
 
-Shannon egy véges sok jelből álló (véges ábécé feletti) üzenet információértékét az üzenet jeleinek mint a jelre jellemző valószínűséggel bekövetkező események információtartalmának „átlagos”, azaz várható értékeként határozta meg: ![shannon entrópia](https://wikimedia.org/api/rest_v1/media/math/render/svg/5130465a49650626ef8fec76f8ceebb1b5ec2fbc)
+> Csatorna kapacitás: adott csatornához a kapacitás- a bináris szimmetrikus csatornával való ekvivalencia alapján: Egységnyi idő alatt „átlag” ugyanannyi különböző jelsorozat vihető át, mint egy `C bit/sec` sebességű bináris csatornán. Ekkor a csatorna kapacitás `C`.
+> 
+> A forrás szimbólumok sorozatát választja, a választás bizonytalanságát jellemezzük az egy szimbólumra jutó átlagos mennyiséggel, ez lesz a **Shannon-entrópia**. Entrópia sázmoló: https://planetcalc.com/2476/
+>
+> Shannon egy véges sok jelből álló (véges ábécé feletti) **üzenet információértékét** az üzenet jeleinek mint a jelre jellemző valószínűséggel bekövetkező események információtartalmának „átlagos”, azaz várható értékeként határozta meg: ![shannon entrópia](https://wikimedia.org/api/rest_v1/media/math/render/svg/5130465a49650626ef8fec76f8ceebb1b5ec2fbc) azaz az `i`-edik jelhez tartozó információ mennyiségéevel kifejezve az entrópia az a jelnekénti infomráció valószínűség és az elem gyakoriságának szorzatának elemenként vett öszege: ![val vált entrópiája H(x)](https://wikimedia.org/api/rest_v1/media/math/render/svg/82ab20e6d90eea88d584baeff1712345f9a412e8). Az entrópia egy elem bizonytalanságának mértékével egyenlő. *"Ha két jel azonos értékkel rendelkezik akkor az azt jelzi, hogy nehéz megjósolni a következő elemet."*. 
 
+**Entrópia tulajdonságai:**
+1. Nem negatív:  `H( p1,p2,…,pm) ≥  0`, ha `pi = 1` akkor `H(x)=0`
+2. Az események valószínűségeinek folytonos   függvénye. 
+3. `H( p1,p2,…,pm, 0 )  =  H( p1,p2,…,pm)` 
+4. Ha `pi= 1`, a többi  `pk = 0`, `( k=1, …, i−1, i+1 ,…, m)`, akkor  `H( p1,p2,…,pm) = 0`. 
+5. `H( p1,p2,…,pm) ≤ H( 1/m,1/m, … 1/m )` Egyenlőség csak egyenletes eloszlásra, a legnagyobb  bizonytalanságú eloszlásra. 
+6.`H(p1, …, pk−1,pℓ ,pk+1,…,pℓ−1,pk ,pℓ+1,…,pm)  = H( p1,p2,…,pm)`, `∀k, ℓ` ;   azaz az entrópia szimmetrikusváltozóinak cseréjére. 
+7. szétválasztás: `H(p1,…,pn) = H(p1+p2,p3,…,pn)+(p1+p2)H(p1/(p1+p2), p2/(p1+p2))`.
 
-## EA2
-Huffamnn kódolás: https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s
+> ***K* szimólum átlagos (várható) kódhossza:** `L(K) = Σp(xi)l(xi) | x∈Σx` Azaz ez a relatív gyakorisága az elemnek.
+> 
+> **teljes kódhossz:** `L(x) = nili + n2l2 + ... + ndld`
+> 
+> **átlagos kódhossz:** `L(x) = (nili + n2l2 + ... + ndld)/n`
+
+![kódfa]https://slideplayer.hu/slide/13073258/79/images/8/K%C3%B3dfa+Olyan+bin%C3%A1ris+fa%2C+amely+csom%C3%B3pontjaihoz+vezet%C5%91+%C3%BAt+megfelel+a+k%C3%B3dszavaknak.+%28pl.+jobbra%3D0%2C+balra%3D1%29.jpg)
+
+- rövid kódhoz a legnagoybb valséget rendeli
+  - huffman kód viszafele halad
+
+**Kraft-Fano egyenlőtlenség**: 4.30-as tétel: [Információ- és kódelmélet - Fegyverneki Sándor - Miskolc.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Inform%C3%A1ci%C3%B3-%20%C3%A9s%20k%C3%B3delm%C3%A9let%20-%20Fegyverneki%20S%C3%A1ndor%20-%20Miskolc.pdf), vagy: https://www.uni-miskolc.hu/~matfs/INF_11_main_kep.pdf
+
+**McMillan egyenlőtlenség:** akkor is fenn áll ha egyértelműen dekódolhatóak, nem csak a prefix kódra: *Ha a forrás ábécé: ![source alphabet](https://wikimedia.org/api/rest_v1/media/math/render/svg/46bc1766527df66cdb8fdff1f1a3770b60320878) és a kódolt szavak hossza rendre ![length](https://wikimedia.org/api/rest_v1/media/math/render/svg/7d75142eca874965147c8ec91de1ac7a48b02099), mikora kód `r` akkor ![Kraft-McMillan](https://wikimedia.org/api/rest_v1/media/math/render/svg/e9394af5e22e877c9075dcfdac035207424aaa35)*.
+
+**Prefix kód alsó határa:**
+- forrásábécé: `Σx = {x1, x2, ..., xd}`
+- eloszlása: `Px = {p1, p2, ... pd}`
+- csatornaábécé: `Σy = {y1, y2, ..., yd}`
+- prefix kódja: `K = {K1, K2, .... Kd}` ahol `Ki` kódszó hossza `Li`
+- ekkor: `L(K) = ΣLipi ≥ H(x)/log2`*`r`*`  | i=1..d` Azaz az átlagos kódhosssz nagyobb vagy egyenlő mint az entrópia, egyenlő, ha a kódhossz a kitevők számát adja.
+- **Optimális forráskódhossz:** `Li = logr`*`(1/pi)`*
+
+**Prefix kód felső határa:** `L(K) < (H(X)/log2`*`r`*`)+1`
+
+**Kód hatásfoka:** `H(x)/(L(K)log2`*`r`*`)`
+
+> **Huffamnn kódolás:** https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s
+> - prefix
+> - optimális
+> 
+> ![huffmann kód](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Huffman_coding_visualisation.svg/768px-Huffman_coding_visualisation.svg.png) ![huffmann kódfa](https://upload.wikimedia.org/wikipedia/commons/d/d8/HuffmanCodeAlg.png)
+>
+> **Lépések:**
+> - a két legkisebb valószínűségű elemet összevonjuk
+> - ezt elvégezzük az összes elemre
+> - újrarendezzük
+> - ismétlejük
+> - ...
+> - amire származtattunk arra `0`-t adunk, amire nem arra `1`-et, ezt folytatjuk visszafele 
+> 
+> YT tutorial: https://www.youtube.com/watch?v=A6wEgIVEZL8
 
 ## EA3 - elmaradt
 
