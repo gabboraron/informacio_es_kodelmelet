@@ -153,7 +153,7 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 > 
 > **átlagos kódhossz:** `L(x) = (nili + n2l2 + ... + ndld)/n`
 
-![kódfa]https://slideplayer.hu/slide/13073258/79/images/8/K%C3%B3dfa+Olyan+bin%C3%A1ris+fa%2C+amely+csom%C3%B3pontjaihoz+vezet%C5%91+%C3%BAt+megfelel+a+k%C3%B3dszavaknak.+%28pl.+jobbra%3D0%2C+balra%3D1%29.jpg)
+![kódfa](https://slideplayer.hu/slide/13073258/79/images/8/K%C3%B3dfa+Olyan+bin%C3%A1ris+fa%2C+amely+csom%C3%B3pontjaihoz+vezet%C5%91+%C3%BAt+megfelel+a+k%C3%B3dszavaknak.+%28pl.+jobbra%3D0%2C+balra%3D1%29.jpg)
 
 - rövid kódhoz a legnagoybb valséget rendeli
   - huffman kód viszafele halad
@@ -191,15 +191,44 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 > YT tutorial: https://www.youtube.com/watch?v=A6wEgIVEZL8
 > 
 > bővebben: [Algoritmusok es adatszerkezetek 2 javitott 2019.06.07.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Algoritmusok%20es%20adatszerkezetek%202%20javitott%202019.06.07.pdf)
+- [Huffman-kódolás wikipédiában](https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s)
+  - https://people.ok.ubc.ca/ylucet/DS/Huffman.html
+
+- Előnye hogy rövidebb. 
 
 ## EA3 - elmaradt
 
-## EA4
-- [Shannon-Fano kód](https://regi.tankonyvtar.hu/hu/tartalom/tamop425/0046_informacio_es_kodelmelet/ch04s04.html): hivatalos jegyzetben: http://siva.bgk.uni-obuda.hu/~laufer/bevinfo_tankonyv/Informatika%20alapjai%20jegyzet.pdf
-  - [Kutor féle részlet](http://uni-obuda.hu/users/kutor/IRA%202014/IRA%202014-7.pdf)
-- [Gilbert-Moore kód](https://gyires.inf.unideb.hu/KMITT/c07/ch04s05.html)
-- [Huffman-kódolás](https://hu.wikipedia.org/wiki/Huffman-k%C3%B3dol%C3%A1s)
-  - https://people.ok.ubc.ca/ylucet/DS/Huffman.html
+## EA4 - statisztikai alapú kódolás
+### Shannon-Fano kód
+> - [Informatika alapjai jegyzet -Tóthné Dr Laufer Edit.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Informatika%20alapjai%20jegyzet%20-T%C3%B3thn%C3%A9%20Dr%20Laufer%20Edit.pdf) - 105 - oldal
+> - [Shannon-Fano kód](https://regi.tankonyvtar.hu/hu/tartalom/tamop425/0046_informacio_es_kodelmelet/ch04s04.html): hivatalos jegyzetben: http://siva.bgk.uni-obuda.hu/~laufer/bevinfo_tankonyv/Informatika%20alapjai%20jegyzet.pdf
+>   - [Kutor féle részlet](http://uni-obuda.hu/users/kutor/IRA%202014/IRA%202014-7.pdf)
+
+### Gilbert-Moore kód
+> - [Informatika alapjai jegyzet -Tóthné Dr Laufer Edit.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Informatika%20alapjai%20jegyzet%20-T%C3%B3thn%C3%A9%20Dr%20Laufer%20Edit.pdf) - 108 - oldal
+> - [Gilbert-Moore kód](https://gyires.inf.unideb.hu/KMITT/c07/ch04s05.html)
+
+> ### Optimális kód tulajdonságai
+> Az a kód ami a legjobban megközleíti az átlagos kódhossz alsó határát.
+> 
+> 1. Ha növekvő sorrendben állnak a valsózínűségek akkor csökkenő sorrendben állnak a hozzájuk tartozó kódhosszok, ugyanaz a rendezettség kell legyen
+> 2. kiegynesúlyozott kódfát kell kapnunk.
+
+### Távközlési csatorna 
+A csatorna az átviteli valségek mátrixával jellemezhető: `p(y|x)` ahol `x` az input jele, `y` az output jele.
+
+Ha `X` és `Y` val változók lehetséges értékei, azaz `Σx = {x1, x2, ..., xr}` és `Σy = {y1, y2, ..., ym}` Tegyük fel, hogy a csatorna hibázhat: `xj` imput jelhez több `yj` kimenet bármelyikét hozzárendelheti, `p(x|y)` annak a valsége, hogy `y`-t fogadtunk, úgy, hogy `x`-et küldtünk: `p(x|y) = P(X = x|Y = y) = p(x,y)/p(y)`. Azaz `p(x|y)*p(y) = p(x,y)` tehát a peremvalószínűséget kifejezhetjük így is: `p(x|y) = p(x,y)/p(y)`.
+
+#### Feltételes entrópia és kölcsönös információ
+https://vik.wiki/Felt%C3%A9teles_entr%C3%B3pia_%C3%A9s_tulajdons%C3%A1gai
+Annak az informáciuónak az átlagos mennyisége amly annak az x mértékének a megadásához súlyozottan ismertek.
+
+`X` és `y` bizonytalansági mértéke a feltételes bizonytalanásgi mérték összegezve a feltétel bizonytalanságával `H(x,y) = H(y) + H(x|y)`
+
+Ezért a `H(x) - H(x|y)` azt adja meg, hogy az `y` mennyi plusz információt ad `x`-ről.
+
+
+
 
 
 ## EA5
