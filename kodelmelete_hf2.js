@@ -95,7 +95,7 @@ var shannonFanoEncodeder = [];
 console.log("karakter\tvalsége\t\tkódjele");
 for (var i = 0; i < probabilityArray.length; i++) {
 	shannonFanoEncodeder.push([probabilityArray[i], shannonFanoEncode[i]]) 
-	console.log(probabilityArray[i][0].substring(1) + "\t\t" + probabilityArray[i][1] + "\t\t" + shannonFanoEncode[i]);
+	console.log(probabilityArray[i][0].substring(1) + "\t\t\t" + probabilityArray[i][1] + "\t\t\t" + shannonFanoEncode[i]);
 }
 
 var shannonFanoEncodedString = "";
@@ -114,14 +114,75 @@ console.log(" ");
 console.info("------ Gilbert-Moore kódolással -----");
 console.log(" ");
 
+/****************/
+var gilbertMooreProbabilityArray = [pa,pb,pc,pd,pe];
+console.log("[0,1] intervallum felosztása " + gilbertMooreProbabilityArray.length + " elemhez...");
+
+	function interval(s,e,c) {
+		this.start = s;
+		this.end = e; 
+		this.code = c;
+	}
+
+var b = new interval(0,0.5,"0");
+var c = new interval(0.5,1,"1")
+var intervalParts = [[b,c]];
+
+var nrOfLeaf = 2;
+var nrOfLevel = 1;
+//init sliceing
+while (nrOfLeaf < gilbertMooreProbabilityArray.length){
+	var newLevel = [];
+	var tmpIdx = 0;
+	for (var i = 0; tmpIdx < intervalParts[nrOfLevel-1].length*2; i++) {
+		newLevel[tmpIdx] = new interval(intervalParts[nrOfLevel-1][i].start, intervalParts[nrOfLevel-1][i].start + (intervalParts[nrOfLevel-1][i].end - intervalParts[nrOfLevel-1][i].start)/2, intervalParts[nrOfLevel-1][i].code.concat("0"));
+		tmpIdx++;
+		newLevel[tmpIdx] = new interval(intervalParts[nrOfLevel-1][i].start + (intervalParts[nrOfLevel-1][i].end - intervalParts[nrOfLevel-1][i].start)/2, intervalParts[nrOfLevel-1][i].end, intervalParts[nrOfLevel-1][i].code.concat("1"));
+		tmpIdx++;
+	}
+
+	nrOfLevel++;
+	nrOfLeaf = newLevel.length;
+	intervalParts.push(newLevel);
+}
+
+//get the code for each character
+var gilbertMooreCodeArray = [];
+var tmpProbabilityPartSum = 0;
+
+console.log("valség : részösszeg -> hozzá tartozó kódrészlet");
+for (var i = 0; i < gilbertMooreProbabilityArray.length; i++) {
+	
+	var found = 0;
+	//var level = 0;
+	var level = nrOfLevel-1;
+	var code = "";
+	tmpProbabilityPartSum += gilbertMooreProbabilityArray[i]; 
+	//while(found == 0){
+		for (var node = 0; node < intervalParts[level].length; node++) {
+			if((tmpProbabilityPartSum <= intervalParts[level][node].end) && (tmpProbabilityPartSum >= intervalParts[level][node].start)){
+				/*if (level+1<nrOfLevel) {
+					level++;
+				}	
+				else{	//leaf found*/
+					found = 1;
+					console.log(gilbertMooreProbabilityArray[i] + " : " + tmpProbabilityPartSum + " -> " + intervalParts[level][node].code);
+					gilbertMooreCodeArray[i] = intervalParts[level][node].code;
+				//}
+			}
+		}
+	//}
+}
+/***********************/
+
 var gilbertMooreEncodedString = "";
 for (var i = 0; i < mystring.length; i++) {
 	switch(mystring[i]){
-		case "a": gilbertMooreEncodedString += "000"; 	 break;
-		case "b": gilbertMooreEncodedString += "001";  	 break;
-		case "c": gilbertMooreEncodedString += "10";  	 break;
-		case "d": gilbertMooreEncodedString += "110";  	 break;
-		case "e": gilbertMooreEncodedString += "111";    break;
+		case "a": gilbertMooreEncodedString += gilbertMooreCodeArray[0]; 	 break;
+		case "b": gilbertMooreEncodedString += gilbertMooreCodeArray[1];  	 break;
+		case "c": gilbertMooreEncodedString += gilbertMooreCodeArray[2];  	 break;
+		case "d": gilbertMooreEncodedString += gilbertMooreCodeArray[3];  	 break;
+		case "e": gilbertMooreEncodedString += gilbertMooreCodeArray[4];    break;
 	}
 }
 
