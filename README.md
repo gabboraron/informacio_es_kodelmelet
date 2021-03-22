@@ -203,21 +203,85 @@ http://zeus.nyf.hu/~falu/kod/k.pdf, fájlként: https://github.com/gabboraron/in
 > - [Informatika alapjai jegyzet -Tóthné Dr Laufer Edit.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Informatika%20alapjai%20jegyzet%20-T%C3%B3thn%C3%A9%20Dr%20Laufer%20Edit.pdf) - 105 - oldal
 > - [Shannon-Fano kód](https://regi.tankonyvtar.hu/hu/tartalom/tamop425/0046_informacio_es_kodelmelet/ch04s04.html): hivatalos jegyzetben: http://siva.bgk.uni-obuda.hu/~laufer/bevinfo_tankonyv/Informatika%20alapjai%20jegyzet.pdf
 >   - [Kutor féle részlet](http://uni-obuda.hu/users/kutor/IRA%202014/IRA%202014-7.pdf)
+>   
+> ![shannon fano kód](http://www.algoanim.net/_Media/shannonfano2_med.png)
+
+**Lépések:**
+1. rendezzük gyakoriság szerint
+2. felmérjük egy `[0,1]` intervallumra, úgy, ohgy a lgekisebb van elől az `1`-nél
+3. Az intervallumot felosztjuk egyenlő részekre, ezt addig ismételjük míg minden elemhez tartozik egy intervallum szakasz.
+4. a szakaszokból kkódfár építünk, balra `0` jobbra `1` elágazással.
+````
+|x2        x4      x3    x1   x5   |
+0                                  1
+[               ][                 ]
+                 [        ][       ]
+                 [    ][  ][  ][   ]
+        x2          x4   x3 x1   x5
+        
+                /\
+               0  1
+                  /\
+                 0  1
+                /\  /\
+               0  1 0 1
+x1 = 110
+x2 = 0
+x3 = 101
+x4 = 100
+x5 = 111
+````
 
 ### Gilbert-Moore kód
 > - [Informatika alapjai jegyzet -Tóthné Dr Laufer Edit.pdf](https://github.com/gabboraron/informacio_es_kodelmelet/blob/main/Informatika%20alapjai%20jegyzet%20-T%C3%B3thn%C3%A9%20Dr%20Laufer%20Edit.pdf) - 108 - oldal
 > - [Gilbert-Moore kód](https://gyires.inf.unideb.hu/KMITT/c07/ch04s05.html)
+Azért jó mert nem kell rendezni, hanem olyan sorrendben vesszük fel az intervallumra ahogy jönnek az elemek, így lesznek üres ágak, de a kód nem lesz optimális.
 
 > ### Optimális kód tulajdonságai
-> Az a kód ami a legjobban megközleíti az átlagos kódhossz alsó határát.
+> Az a kód ami a **legjobban megközleíti az átlagos kódhossz alsó határát.** 
 > 
-> 1. Ha növekvő sorrendben állnak a valsózínűségek akkor csökkenő sorrendben állnak a hozzájuk tartozó kódhosszok, ugyanaz a rendezettség kell legyen
+> 1. Ha növekvő sorrendben állnak a valószínűségek akkor csökkenő sorrendben állnak a hozzájuk tartozó kódhosszok, ugyanaz a rendezettség kell legyen
 > 2. kiegynesúlyozott kódfát kell kapnunk.
 
 ### Távközlési csatorna 
-A csatorna az átviteli valségek mátrixával jellemezhető: `p(y|x)` ahol `x` az input jele, `y` az output jele.
+#### Diszkrét emlékezet nélkül csatorna
+> `P(y|x)` ~ `y`- t fogadtunk és `x`-et küldtünk.
+>
+> A csatorna az átviteli valségek mátrixával jellemezhető: `p(y|x)` ahol `x` az input jele, `y` az output jele.
 
 Ha `X` és `Y` val változók lehetséges értékei, azaz `Σx = {x1, x2, ..., xr}` és `Σy = {y1, y2, ..., ym}` Tegyük fel, hogy a csatorna hibázhat: `xj` imput jelhez több `yj` kimenet bármelyikét hozzárendelheti, `p(x|y)` annak a valsége, hogy `y`-t fogadtunk, úgy, hogy `x`-et küldtünk: `p(x|y) = P(X = x|Y = y) = p(x,y)/p(y)`. Azaz `p(x|y)*p(y) = p(x,y)` tehát a peremvalószínűséget kifejezhetjük így is: `p(x|y) = p(x,y)/p(y)`.
+
+#### Perem és feltételes valószínűségek
+> mekkora a valsége annak, hogy y értéke 1
+ 
+*csatornamátrix:*
+```
+P(x,y)    |        x               | P(y)
+__________|___1____2_____3_____4___|_____
+        1 |  1/8  1/16  1/32  1/32 |  1/4
+        2 | 1/16  1/8   1/32  1/32 |  1/4
+   y    3 | 1/16  1/16  1/16  1/16 |  1/4        
+        4 | 1/4    0     0     0   |  1/4
+__________|________________________|_____
+  P(x)    | 1/2   1/4   1/8   1/8  |
+```
+
+**`x` és `y` függetlenek, ha `P(xi,yi) = P(xi) * P(yi)`** Ez alapján *pl a fenti táblázatban, `x = 2; y=2` esetben `P(y) = 1/4`, `P(x) = 1/4` tehát `P(xi,yi) = 1/4 * 1/4 = 1/16` de a táblázatban `1/8` szerepel, tehát ezek a val váltok nem függetlenek egymástól!*
+
+
+A feltételes valséghez: `P(x|y)` úgy jutunk, hogy minden `x`,`y` mátrix értéet elosztjuk a perem valószínűséggel, `P(y)`-al, teht *pl, ha `x =1; y=1` esetet vesszük akkor `1/8` az érték, amit elosztunk a hozzá tartozó `P(y)`-al, `1/4`-el*
+
+```
+P(x|y)    |       x
+__________|__1____2____3____4__
+        1 | 1/2  1/4  1/8  1/8
+        2 | 1/4  1/2  1/8  1/8
+   y    3 | 1/4  1/4  1/4  1/4
+        4 |  1    0    0    0
+```
+
+*pl: Mekkora a valsée annak, hogy `2`-t kapunk ha `3`-mat küldünk?: `y = 2; x = 3`-ban `1/8`, tehát `1/8` a valsége.
+
 
 #### Feltételes entrópia és kölcsönös információ
 https://vik.wiki/Felt%C3%A9teles_entr%C3%B3pia_%C3%A9s_tulajdons%C3%A1gai
@@ -227,8 +291,45 @@ Annak az informáciuónak az átlagos mennyisége amly annak az x mértékének 
 
 Ezért a `H(x) - H(x|y)` azt adja meg, hogy az `y` mennyi plusz információt ad `x`-ről.
 
+**Feltételes entrópia:** `H(X|Y = yk) = Σp(x|yk)log2`*`1/p(x|yk)`*` | x∈Σx`
+Az `x`entrópiája egy adott, fogadott `y` tükrében ezt a feltételes vaséget használja:`p(x|yk)`, ezután minden `y` fogadott jel szerint ezt súlyzottan összegezzük, tehát minden fogadott entrópiát összegzünk a hozzá tartozó `y` súlyával: `ΣΣp(x,y)log2`*`1/p(x|y)`*` | x∈Σx; y∈Σy`
 
+**`x` és `y` bozonytalansági mértéke:** a feltételes bizonytalansági érték a feltétel bizonytalanságával megtoldva: `H(x,y) = H(y) + H(x|y) = H(x) + H(y|x)` tehát `H(x|y)<=H(x)`
 
+**`x` és `y` valvált kölcsönös információja:** annak aátlagos mértéke amit `x` és `y` egymásra vonatkozóan tartalmaz: `I(x,y) = H(x) - H(x|y)
+
+![kölcsönös információ](https://image2.slideserve.com/4393275/k-lcs-n-s-inform-ci-l.jpg)
+
+```
+------------H(x,y)--------------
+-------H(x)--------
+           --------H(y)---------
+--H(x|y)-- --I(x,y)-- --H(y|x)--  
+```
+
+#### Csatorna típusok
+**A csatorna zajmentes ha `X=Y`, ekkor `I(x,y) = I(x,x) = H(x) <= log `*`r`*** 
+
+##### szimetrikus csatorna 
+A csatorna szimatrikus, ha a `[p(y|x)]` csatornamátrix sorai egymás permutációi és oszlopai is egymás permutációi.
+
+*pl szimetrikusra:*
+```
+p   1-p       =      p(0|0)   p(1|0)
+1-p  p               p(0|1)   p(1|1)
+```
+
+*pl aszimetrikusra:*
+```
+1-q   0             
+q     q        =     
+0     1-q
+```
+
+![csatornatípusok](https://slideplayer.hu/slide/3171132/11/images/9/Csatornat%C3%ADpusok%2C+m%C3%A1trixaik+%C3%A9s+gr%C3%A1fjaik.jpg)
+
+##### csatorna kapacitás
+A csatornakapcitás: `C = max I(x,y)`
 
 
 ## EA5
