@@ -254,7 +254,7 @@ Ha `X` és `Y` val változók lehetséges értékei, azaz `Σx = {x1, x2, ..., x
 #### Perem és feltételes valószínűségek
 > mekkora a valsége annak, hogy y értéke 1
  
-*csatornamátrix:*
+*együttes valószínűségi csatornamátrix/táblázat:*
 ```
 P(x,y)    |        x               | P(y)
 __________|___1____2_____3_____4___|_____
@@ -292,11 +292,11 @@ Annak az informáciuónak az átlagos mennyisége amly annak az x mértékének 
 Ezért a `H(x) - H(x|y)` azt adja meg, hogy az `y` mennyi plusz információt ad `x`-ről.
 
 **Feltételes entrópia:** `H(X|Y = yk) = Σp(x|yk)log2`*`1/p(x|yk)`*` | x∈Σx`
-Az `x`entrópiája egy adott, fogadott `y` tükrében ezt a feltételes vaséget használja:`p(x|yk)`, ezután minden `y` fogadott jel szerint ezt súlyzottan összegezzük, tehát minden fogadott entrópiát összegzünk a hozzá tartozó `y` súlyával: `ΣΣp(x,y)log2`*`1/p(x|y)`*` | x∈Σx; y∈Σy`
+Az `x`entrópiája egy adott, fogadott `y` tükrében ezt a feltételes vaséget használja:`p(x|yk)`, ezután minden `y` fogadott jel szerint ezt súlyzottan összegezzük, tehát minden fogadott entrópiát összegzünk a hozzá tartozó `y` súlyával: `ΣΣp(x,y)log2`*`1/p(x|y)`*` | x∈Σx; y∈Σy`. Azaz az entrópia az esemény bekövetkezésének valószínűségének és az esemény információ tartalmának hányadosa. Alacsony valószínűséghez mgaas információtartalom társul, ismét.
 
 **`x` és `y` bozonytalansági mértéke:** a feltételes bizonytalansági érték a feltétel bizonytalanságával megtoldva: `H(x,y) = H(y) + H(x|y) = H(x) + H(y|x)` tehát `H(x|y)<=H(x)`
 
-**`x` és `y` valvált kölcsönös információja:** annak aátlagos mértéke amit `x` és `y` egymásra vonatkozóan tartalmaz: `I(x,y) = H(x) - H(x|y)
+**`x` és `y` valvált kölcsönös információja:** annak átlagos mértéke amit `x` és `y` egymásra vonatkozóan tartalmaz: `I(x,y) = H(x) - H(x|y), azaz ez annak az indormáció mennyisége amit a fogadott jelkészlet nyújt (`y`), az elküldött jelkészletről(`x`).
 
 ![kölcsönös információ](https://image2.slideserve.com/4393275/k-lcs-n-s-inform-ci-l.jpg)
 
@@ -328,14 +328,24 @@ q     q        =
 
 ![csatornatípusok](https://slideplayer.hu/slide/3171132/11/images/9/Csatornat%C3%ADpusok%2C+m%C3%A1trixaik+%C3%A9s+gr%C3%A1fjaik.jpg)
 
-##### csatorna kapacitás
-A csatornakapcitás: `C = max I(x,y)`
-
-
 ## EA5
+### csatorna kapacitás
+A csatornakapcitás emlékezet élküli csatornán: `C = max I(x,y)`
+
+> **Shannon szerint:** a csatorna kapacitás az egy kódjellel maximálisan átvihető információ átlagos értékével egyenlő. Ha a csatorna kapacitása *C* és a csatorna kód átlagos hossza *L(K)*, akkor egy kódszó átlagosan *L(K)C* mennyiségű információt vihet át a csatornán. Ezért a forrás közleményeket csak akkor továbbíthatjuk, ha a `H(X)<=L(K)C`. 
+> 
+> Bináris szimetrikus csatorna esetén a helyes továbbítás valsége *p*, a hibáé *q=1-p*.
+
+https://www.slideshare.net/DrSanjayMGulhane/digital-communication-information-theory
+
+![val mátrix](https://image.slidesharecdn.com/unit2dcsmgslideshare-191011143725/95/digital-communication-information-theory-50-1024.jpg?cb=1570805063)![all definitions](https://image.slidesharecdn.com/informationtheory-160202054047/95/information-theory-36-638.jpg?cb=1454392202)![image_with_desc](https://slideplayer.com/slide/9681076/31/images/4/Binary+symmetric+Channel.jpg)
+
+
+
+
 
 ## EA6
-
+következik
 
 
  
