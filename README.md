@@ -344,8 +344,93 @@ https://www.slideshare.net/DrSanjayMGulhane/digital-communication-information-th
 
 
 
-## EA6
-következik
+## EA6 - hibajelzés, hibajavítás
+https://gyires.inf.unideb.hu/GyBITT/30/ch03s02.html
+
+> hogyan ismerjük fel a hibát és hogy tudjuk kijavítani?
+>
+> miért:
+> - továbbításkor megváltozik az üzenet
+> - kibővítjük az eredeti üzenetet, hogy vételkor ellenőrizni tudjuk, történt-e változás
+>   - kód + redundáns információ
+>   - hibajelző újra küldés
+>   - paritás bitek
+>   - hibajavító kód, hamming kód, stb
+### Blokk kód
+Egy adott elemhez egy blokknyi (azonos hosszúságú) kódot rendelünk. Alapvetően **`m` adatbit**, hozzátéve még redundáns bitet , most három ilyent. Ha nem adunk hozzá redundáns bitet akkor egy **szisztematikus kód**.
+> #### Lineáris kódok
+> A kód első részének valamilyen lineáris vag yvalamilyen más függvénye, mint a `kizáró vagy` vagy `mod 2`.
+
+jellemzője ű
+- **kódhosszúság**: ami a teljes kódra vonatkozik
+- **kódsebesség**: azaz a nem redundáns információt tartlmazó rész **`m/n`**. Zajos csatornán sok redundáns bit kell.
+
+> ### Hiba
+> elküldök egy jelet és másikat fogadok. a köztük levő különbség a Hamming távolság. 
+> 
+> *Pl:*
+> ```
+> 10001001
+> 10110001
+> 00111000
+> ```
+> - első szó Hamming ávosága `dH`, jelen esetben `3`
+> - a **teljes kódrendszer Hamming rávolsága mindegyik kódszó mindegyikkel vett összehasonlításából keletkező érték minimuma**.
+> 
+> #### hiba észlelése
+> Ha `m` hosszú a bináris üzenet akkor a lehetséges üzenet k száma `2^m`, ezek *legális kódszavak*. az ellenörző bitek miatt nem fordul elő mindegyik kódszó, mert a redundáns rész ismétlődik.
+> 
+> Ha úgy választjuk kia a redundánsokat, hogy a kódszó leglaább 3 legyen akkor biztosan ki tudunk javítani egy bit tévedést.
+>
+> Ha egy érvényes kódszót lát a vevő akor átviteli hiba történt. Ha viszont `t` hibát szeretnénk jelezni akkor `2*t+1` távolságú kell legyen, hogy felismerjük a hibát, hogy *biztosan elkülönítsük* kettőt egymástól. Ha csak `2t` a különbség akkor a határon levő elemet nem lehet megmondani hova tartozik.
+> 
+> *pl:*
+> ```
+> n=10
+> 
+> 0000000000
+> 0000011111
+> 1111100000
+> 1111111111
+> 
+> dh= 5, d = 5
+> 5 = 2*t+1=> t = 2
+> 
+> ```
+
+Egy kód akkor és csak akkor korrekt `t` hibáig ha a `kódtávolság >= 2t+1`
+
+A blokk három fő paramétere:
+- `M`: kódvektorok száma
+- `n` kódszavak hossza
+- `d` kódtávolság
+
+Az `m` paraméter helyett szokás az információs bitek `k` számát vagy az `R=k/n` hányadpst is használni. Szokás továbbá a blokk kódra az `(n,M,d)` formában hivatkozni.
+
+Tetszőleges legfeljebb `t` hibát javító blokk kdra fenn kell állnia a `M * ΣC(n,i) <= 2^n | i=0..t` 
+- Ahol egynelőség áll fenn ott *perfeekt kódról* van szó
+- a kófdokat 2^n darab bináris vektorként és `M` darab `t` sugarú gömbbel a *"legszorosabb kitöltést biztosítják"**.
+
+Csak három tökéletes kódoszt  ály létezik:
+- pűratlan hosszúságú
+- Hamming kódok - 1 hibát javít
+- Golay kód.
+
+*példa:*
+- bináris ismétlődő kód hossza 3
+- a kód a jelet 3 szor megismtli
+ - `0`  - `000`
+ - `1`  - `111`
+- a két kód távolsága: `dH((000),(111)) = 3`
+- `din = 3`
+- 3 hoszú bináris vektorok száma `2^3 = 8`, ezek egy 3D kocka egségoldalainak is meglelelnek.
+
+- **Plotkin korát:** bámrely blokk kódra tlejesül, hogy: `M<= 2^(n-2d+2)d`
+- **Gilbert korlát:** haa aparméterek kielégítik `(M-1) ΣC(n,i)` akor létezik ilyen tulajdonásgú blokk kód.
+
+**Shannon tétele alapján eléggé  hoszú hibajavító kóddal tetetszőlegesen NEMTUDOM MI TÖRTÉNIK MERT ELVITTE A DIÁT!!!!**
+
+még három óra és zh a a kódolásból és a tömörítésből.
+- a beadandó mindegy milyen formában, de doc formátumban kell, amihheez kell egy prezentáció, kb 6- 8 dia
 
 
- 
