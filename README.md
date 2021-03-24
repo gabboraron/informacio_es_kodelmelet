@@ -417,6 +417,7 @@ Csak három tökéletes kódoszt  ály létezik:
 - Golay kód.
 
 *példa:*
+```
 - bináris ismétlődő kód hossza 3
 - a kód a jelet 3 szor megismtli
  - `0`  - `000`
@@ -424,13 +425,15 @@ Csak három tökéletes kódoszt  ály létezik:
 - a két kód távolsága: `dH((000),(111)) = 3`
 - `din = 3`
 - 3 hoszú bináris vektorok száma `2^3 = 8`, ezek egy 3D kocka egségoldalainak is meglelelnek.
+```
 
 - **Plotkin korát:** bámrely blokk kódra tlejesül, hogy: `M<= 2^(n-2d+2)d`
 - **Gilbert korlát:** haa aparméterek kielégítik `(M-1) ΣC(n,i)` akor létezik ilyen tulajdonásgú blokk kód.
 
 **Shannon tétele alapján eléggé  hoszú hibajavító kóddal tetetszőlegesen NEMTUDOM MI TÖRTÉNIK MERT ELVITTE A DIÁT!!!!**
 
-még három óra és zh a a kódolásból és a tömörítésből.
-- a beadandó mindegy milyen formában, de doc formátumban kell, amihheez kell egy prezentáció, kb 6- 8 dia
+*beadandóról:*
+> még három óra és zh a a kódolásból és a tömörítésből.
+> - a beadandó mindegy milyen formában, de doc formátumban kell, amihheez kell egy prezentáció, kb 6- 8 dia
 
 
