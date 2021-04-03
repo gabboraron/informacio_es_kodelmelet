@@ -419,7 +419,7 @@ Csak három tökéletes kódoszt  ály létezik:
 *példa:*
 ```
 - bináris ismétlődő kód hossza 3
-- a kód a jelet 3 szor megismtli
+- a kód a jelet 3 szor megismétli
  - `0`  - `000`
  - `1`  - `111`
 - a két kód távolsága: `dH((000),(111)) = 3`
@@ -434,6 +434,116 @@ Csak három tökéletes kódoszt  ály létezik:
 
 *beadandóról:*
 > még három óra és zh a a kódolásból és a tömörítésből.
-> - a beadandó mindegy milyen formában, de doc formátumban kell, amihheez kell egy prezentáció, kb 6- 8 dia
+> - a beadandó mindegy milyen formában, de doc formátumban kell, amihez kell egy prezentáció, kb 6- 8 dia
+
+## EA7 
+https://szit.hu/doku.php?id=oktatas:kriptologia:kriptografia
+> *Ismétlés*
+> 
+> *`D` a kódtávolság ami a két kód közti különbség száma, pl: `000` és `111` kód között a különbség `3` theát  `D=3`. Valamint `2t+1 = D` => `t=1` ahol `t` a felismerhető hibák száma.*
+> 
+> ![kódolás menete](https://szit.hu/lib/exe/fetch.php?media=oktatas:kriptologia:kodolaselvivazlata.png)
+> 
+> A forrás `k` hosszú, `u=(u`*`1`*`,u`*`2`*`,...,u`*k*`)` bináris üzenet melyet tekintsünk egyetlen *forrásszónak* - kíván eljuttatni hírközlési csatornán keresztül egy nyelőbe. a Kódoló az üzenetet egy`n ≥ k` hosszúságú `c=(c`*`1`*`, c`*`2`*`,..., c`*`n`*`)` bináris *kódszó*ba képezi le. A csatornakimenetén egy `n` hosszúságú `v=(v`*`1`*`,v`*`2`*`,...,v`*`n`*`)` bináris *vett szó* jelenik meg.
+> 
+> Az `u` ami *`k`* hosszúságú szót kibővítjük a kódolás során `c`-re ami már *`n`* hosszúságú.
+> 
+> Tehát a hiba az elküldött és vett szavak közti különbség, a *Hamming távolságuk* azon pozíciók száma maiben különbözik `u` és `v` ez lesz `t`: *`t=d(c,v)`*
+> 
+> Elsősorban aznos hosszúságú kódokról lesz szó, tehát *blokkkód*okról. A kérdés *hány elemet lehet lekódolni?*: Ha `k` hosszú a szó akkor `2^k` üzenetet tudok elkódolni.
+> 
+> Dekódoláshoz a vett `v` szóból, valamilyen döntési mechanizmus alapján egy *`c`* kódba kell leképezni, azaz, meg kell nézni, hogy van-e hiba, össze kell hasonlítani, az eredeti kódszóval.
+> 
+
+*gyakorlati példa:*
+````
+C(5,2) kód az alábbi kódolás szerint:
+
+      u        c
+
+a    00      00000
+b    01      01101
+c    10      10110
+d    11      11011
 
 
+dekódolási táblázat első pár sora:
+  v       c'    u'
+00000   00000   00
+10000   00000   00
+01000   00000   00
+11000   00000   00
+00100   00000   00
+10100   10110   10
+01100   01101   01
+11100   01101   01
+00010   00000   00
+10010   10110   10
+ ...     ...    ...
+````
+Tehát, ha van négy elemünk, `a,b,c,d` amikhez fix hosszú kódokat adunk hozzá, és kiegészül `v`-re, tehát `01`-> `01101`. Ezek után két lehetőségünk van:
+1. **táblázatos módszer:**
+   Átküldjük előre, hogy amennyiben a meghatározott `v` jelet vesszük, úgy azt milyen `c'` jelbe dekódolja, aminek milyen `u'` az eredeti kódszava. Ekkor mindegy, hogy a fogadott `v` szó létezik-e az eredeti kódolási eljárásban keletkezett `c` kódok bármelyikével, ha azt kapjuk *pl a csatornán, hogy`10100` akkor az `10110`-nak feleltethető meg, ami az `10` bináris jelen futó `c` betű.* 
+   **hátránya:** hogy nagy tárkapacitást ígényel, *pl: `k=50` bitüzenethosszúság esetén 2^50 ~ 10^15 méretű a kód.*
+2. **hibajelzés módszer:**
+   Ehhez használjuk, hogy a *Hamming-távolság*, vagy *kódtávolság*: `d`*`min`*`=min(d(c,c')) | c != c', c,c'∈C`, előző példában ez`d`*`min`*`=3`. Hasonlóan meghatározhatjuk, hogy a vett szó kódszó-e, ha a hibák sázma legfeljebb  `t`és `d`*`min`*`>t` akkor hiba esetén **biztosan nem keletkizk téves kódszó!**    
+
+### Lineáris kdok
+> *Hogyan konstruálható elegendő hosszúságú kód? Miért pont ezek a bővítések szerepelnek ezekhez a kdokhoz? pl`00-hoz 00000`?*
+> 
+> Generátor mátrixot használunk, ahol, ahol lineárisan független vektrokból álló mátrixot használunk:
+> ```  
+> G =  10110
+>      01101
+> ```
+> 
+> mátrixot a `u` mátrixal vett XOR (*mod2*)-a adja. 
+> 
+> **Def:** `c` kód **lineáris kód**, ha a `C` halmaz lineáris tér, azaz ha minden `c,c ∈ C'` esetén `c+c'∈C`. Ennek  megfelelően `g1,g2,...gk` `C`-beli vektorok a `2^k` elemet tartlmazó lineáris tér  egy bázisát adják, tehát testszőlegesen sok `c∈C` elem előállítható velük: `c=Σu`*`i`*`g`*`i`*` | i=1..k`.
+>  
+> **Szisztematikus kód:** az a kód amiben szerepel az eredeti kódszó. *pl a fenti példa ilyen.*
+> 
+> **paritás mátrix:** A `C` lineáris kódhoz hozzárendelünk egy `H(n-k)xn` méretű bináris mátrixor amelynek az a tulajdonsága, hogy detektálni tudja az `n` hosszú vektorok `2^n` méretű halmazában a `C` kódszavait. A detektálás alapja: `Hc^T =0` akkor és csak akkor igaz, ha `c∈C`. Szimetrikus ggeometrikus kódok esettén egyszerűen megkaphatjuk a `H` mátrixot: `H=(A,In-k)`, ahol `A=-B^T`.
+> 
+> **hibavektor:** `e=v-c` ahol `c` a küldött, `v` a fogadott szó, *pl: `c=10110` és `v=11110` akkor `e=01000`, azaz a második koordináta a hibás.* Hasonlóan mátrixokra is a paritásmátrixal: `Hv^T=H(c+e)^T=Hc^T+He^T=He^T`.
+> 
+> Megadható a lineáris kódok dekódolása a szindráma felasználásával:
+> - két oszlopot írunk fel
+> - egyikben a szindrómák, másikban a szindrómáknak megfelelő minimális hibaszámú hibavektorok állnak. 
+> - a nulladik sorban a zérus szindróma és a neki megfelelő zérus hibaminta áll ami hibamentes esetnek felel meg.
+> 
+> A szindrómavektorok hossza `n-k`, a szindrómák száma `2^n-k`.
+> 
+> ***Szindrómadetektálás lépései:***
+> 1. a `v` vett szónak megfelelő `s` szindróma kiszámítása
+> 2. a dekódolótáblázat `s`-nek megfelelő sorából a becsült `e`hibavektor kiolvasása
+> 3. `c'=v-e` dekódolási lépés elvégzése
+> 4. az `u'`dekódolt üzenet `c'`-hez rendelése
+
+### Paritás kód  
+https://hu.qaz.wiki/wiki/Multidimensional_parity-check_code
+
+A kétdimenziós paritásellenőrző kód, amelyet általában optimális téglalap alakú kódnak neveznek, a többdimenziós paritásellenőrző kód legnépszerűbb formája. Tegyük fel, hogy a cél a négyjegyű `1234`üzenet továbbítása kétdimenziós paritás séma segítségével. Először az üzenet számjegyei téglalap alakban vannak elrendezve: 
+```
+12
+34
+```
+A paritás számjegyeit azután kiszámítják, hogy az oszlopokat és a sorokat külön-külön összeadják: 
+```
+12 3
+34 7
+46 
+```
+A `12334746` nyolc számjegyű sorozat az az üzenet, amelyet ténylegesen továbbítanak. Ha bármilyen hiba történik az átvitel során, akkor ez a hiba nem csak felismerhető, hanem kijavítható is. Tegyük fel, hogy a kapott üzenet hibát tartalmazott az elsõ számjegynél. A vevő átrendezi az üzenetet a rácsba:
+```
+9 2 3
+34 7
+46
+```
+A vevő láthatja, hogy az első sor és az első oszlop helytelenül is összeadódik. Ezen tudás és annak feltételezése alapján, hogy csak egy hiba történt, a vevő kijavíthatja a hibát. Két hiba kezelése érdekében négydimenziós sémára lenne szükség, több paritás számjegy árán. Többdimenziós paritásellenőrző kód.
+
+
+
+
+ 
+   
