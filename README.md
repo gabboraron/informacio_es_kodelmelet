@@ -542,8 +542,44 @@ A `12334746` nyolc számjegyű sorozat az az üzenet, amelyet ténylegesen tová
 ```
 A vevő láthatja, hogy az első sor és az első oszlop helytelenül is összeadódik. Ezen tudás és annak feltételezése alapján, hogy csak egy hiba történt, a vevő kijavíthatja a hibát. Két hiba kezelése érdekében négydimenziós sémára lenne szükség, több paritás számjegy árán. Többdimenziós paritásellenőrző kód.
 
+## EA 8 - Veszteséges és veszteség mentes tömörítés
+> ### Veszteséges
+> Vagy elhagyjuk a dekódolásnál nem fontos részeit a forrásfájlnak, pl zene esetében nem hallhtó frekvenciákat, képeknél pixeleket összevonhatunk.
+> - fraktál tömörítések
+> - hullám tömörítések
+
+### Veszteségmentes
+- aritmetikai kódolások: valamilyen valósínűségen alapuló kódolások, ezek tömörítenek a leg veszteségmentesebben.
+- lexikális kódolás:
+  - LZW
+  - LZ77/LZ78
+  - DEFLATE
+- futamhossz kódolás: bináris kódokhoz, veszteségmentes tömörítés a veszteséges tömörítés között
+
+> célja: tárolóhely igény csökkentése, akár belterjesen, a saját gépet tekintve is, adatátvitel idejének csökkentése
+> 
+> a lehetőséget az adja, hogy a legtöbb fájl redundáns.  
+
+**Fogalmak:**
+`M->Kódoló->C(M)->Dekódoló->M'`
+- **kódoló:** az `M` egy tömörített `C(M)` reprezentációja állítja elő, amely remélhetően kevesebb bitet használ.
+- **kompresszió hányados:** 0<`C(M) bitjeinek a száma`/`M bitjeinek a sázma`<=1. Csak akkor veszteségmentes ha a dekódoló pontosan az M üzenetet állítja elő.
+- veszteségmentes tömörítésnél tipikusan 10% 
 
 
+- preliniáris(?) adatelemzés szükséges
+- adaptív tömörítés
 
- 
-   
+*Dinamikus modell:* a szövegen alapuló modellt generáll, sttisztikán alapul, pl Huffman
+
+*Adaptív modell:* progresszíven tanulja és módosítja a modellt a szöveg olvasásával párhuzamosan., pl LZW
+
+*Futamhossz tömörítés:* Ez egy egyszerű technika, az ismétlődő karakteek hosszú futamait használja fel.
+
+**LZV**
+Nagy hátrány, hogy a szótárat is át kell küldeni!
+- menet közben építi a szótárat
+
+**támadások:**
+- passzív támadás: ha a támadó csak leolvassa a üzenetet
+- aktív támadás ha a támadó változtat az üzeneten
