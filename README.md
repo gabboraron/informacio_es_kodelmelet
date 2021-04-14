@@ -583,3 +583,11 @@ Nagy hátrány, hogy a szótárat is át kell küldeni!
 **támadások:**
 - passzív támadás: ha a támadó csak leolvassa a üzenetet
 - aktív támadás ha a támadó változtat az üzeneten
+
+## EA 9 zh felkészülés
+- haming távolság
+- lineáris kód
+- tömörítés
+
+konzultáció hétfőn 18-19:30
+
