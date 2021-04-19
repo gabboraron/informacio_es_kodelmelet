@@ -427,10 +427,11 @@ Csak három tökéletes kódoszt  ály létezik:
 - 3 hoszú bináris vektorok száma `2^3 = 8`, ezek egy 3D kocka egségoldalainak is meglelelnek.
 ```
 
-- **Plotkin korát:** bámrely blokk kódra tlejesül, hogy: `M<= 2^(n-2d+2)d`
-- **Gilbert korlát:** haa aparméterek kielégítik `(M-1) ΣC(n,i)` akor létezik ilyen tulajdonásgú blokk kód.
+- **Plotkin korlát:** bámrely blokk kódra tlejesül, hogy: `M<= 2^(n-2d+2)d`
+- **Gilbert korlát:** ha a aparméterek kielégítik `(M-1) ΣC(n,i)` akor létezik ilyen tulajdonásgú blokk kód.
+- **Varshamov - Gilbert korlát:** ha a aparméterek kielégítik `M * ΣC(n-1,i) < 2^n | i=0..d-2` akor létezik ilyen tulajdonásgú blokk kód.
 
-**Shannon tétele alapján eléggé  hoszú hibajavító kóddal tetetszőlegesen NEMTUDOM MI TÖRTÉNIK MERT ELVITTE A DIÁT!!!!**
+**Shannon tétele alapján eléggé  hoszú hibajavító kóddal tetetszőlegesen kis hibavalószínűség érhető el, ha a kódolt bitek átviteli sebessége kisebb mint a csatorna kapacitása. A hosszabb kóddal javul a hibajavító képessége, de nő a dekódolás bonyolultsága és ideje.** 
 
 *beadandóról:*
 > még három óra és zh a a kódolásból és a tömörítésből.
